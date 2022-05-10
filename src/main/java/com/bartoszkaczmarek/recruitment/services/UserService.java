@@ -1,7 +1,7 @@
 package com.bartoszkaczmarek.recruitment.services;
 
-import com.bartoszkaczmarek.recruitment.domain.UserDataResponse;
 import com.bartoszkaczmarek.recruitment.domain.UserDataDto;
+import com.bartoszkaczmarek.recruitment.domain.UserDataResponse;
 import org.springframework.stereotype.Service;
 
 import static com.bartoszkaczmarek.recruitment.converter.UserDataConverter.asGithubUser;
@@ -15,7 +15,7 @@ public class UserService {
     UserService(GithubRestClient githubRestClient, LoginRequestCountService loginRequestCountService) {
         this.githubRestClient = githubRestClient;
         this.loginRequestCountService = loginRequestCountService;
-    };
+    }
 
     public UserDataResponse getUser(String login) {
         loginRequestCountService.countLogin(login);
@@ -26,6 +26,14 @@ public class UserService {
     }
 
     private float resolveCalculation(UserDataDto githubUserDataDto) {
-        return 6 / githubUserDataDto.getFollowers() * (2 + githubUserDataDto.getPublicRepos());
+        float followers = githubUserDataDto.getFollowers();
+        float publicReposCalculation = 2 + githubUserDataDto.getPublicRepos();
+        float rightSideOfCalculation = followers * publicReposCalculation;
+
+        if (rightSideOfCalculation != 0) {
+            return 6 / followers * publicReposCalculation;
+        } else {
+            return 0;
+        }
     }
 }

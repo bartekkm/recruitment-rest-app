@@ -10,15 +10,17 @@ public class UserDataDto {
     private String login;
     private String name;
     private String type;
+
     @JsonProperty("avatar_url")
     private String avatarUrl;
+
     @JsonProperty("public_repos")
     private float publicRepos;
     private float followers;
+
     @JsonProperty("created_at")
     private ZonedDateTime createdAt;
 
-    public UserDataDto() {}
     public UserDataDto(Long id, String login, String name, String type, String avatarUrl, int publicRepos, int followers, ZonedDateTime createdAt) {
         this.id = id;
         this.login = login;

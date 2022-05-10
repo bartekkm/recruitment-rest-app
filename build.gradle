@@ -17,6 +17,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.rest-assured:rest-assured:4.5.1'
+	testImplementation group: 'io.rest-assured', name: 'json-path', version: '4.5.1'
+	testImplementation group: 'io.rest-assured', name: 'xml-path', version: '4.5.1'
 }
 
 tasks.named('test') {

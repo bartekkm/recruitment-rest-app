@@ -3,6 +3,7 @@ package com.bartoszkaczmarek.recruitment.services;
 import com.bartoszkaczmarek.recruitment.domain.LoginRequestCount;
 import com.bartoszkaczmarek.recruitment.repositories.LoginRequestCountRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -14,7 +15,7 @@ public class LoginRequestCountService {
         this.repository = repository;
     }
 
-    @Transactional
+    @Transactional(isolation= Isolation.READ_COMMITTED)
     public void countLogin(String login) {
         repository.findByLogin(login)
                 .ifPresentOrElse(loginRequestCount -> {
